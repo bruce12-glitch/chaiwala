@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CHAIWALA</title>
+<meta name="robots" content="noindex" />
+<meta http-equiv="refresh" content="0; url=/chaiwala/" />
+<script>
+/* Any mistyped / stale / partial URL recovers instantly to the site home.
+   The base is derived from the current path so it also works if the site is
+   ever served from a different sub-path. */
+(function () {
+  var parts = location.pathname.split('/').filter(Boolean);
+  var base = parts.length ? '/' + parts[0] + '/' : '/';
+  location.replace(base + (location.hash || ''));
+})();
+</script>
+<style>
+  html,body{ margin:0; height:100%; background:#0A0705; color:#F3E6D0;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  .wrap{ min-height:100%; display:grid; place-items:center; text-align:center; padding:2rem; }
+  a{ color:#E8A33D; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p>Taking you to <a href="/chaiwala/">CHAIWALA</a>…</p>
+  </div>
+</body>
+</html>
