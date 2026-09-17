@@ -1,0 +1,16 @@
+# dependencies restored from package.json — never committed
+node_modules/
+
+# editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# logs / temp
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.local

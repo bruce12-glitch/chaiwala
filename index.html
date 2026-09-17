@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>CHAIWALA — Four Spices. One Flame. Ninety Seconds.</title>
+<meta name="description" content="Since 1978 a single kettle has been boiling on the same corner of the Varanasi ghats. Kadak masala, elaichi silk, adrak fire — brewed slow, pulled high, poured into clay." />
+<meta name="theme-color" content="#0A0705" />
+
+<meta property="og:title" content="CHAIWALA — Four Spices. One Flame. Ninety Seconds." />
+<meta property="og:description" content="The ninety-second ceremony performed four million times a day." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0705'/%3E%3Cpath d='M9 12h13l-1.6 13a3 3 0 0 1-3 2.6h-3.8a3 3 0 0 1-3-2.6z' fill='%23C1622F'/%3E%3Cpath d='M11 13.5h9l-1.2 10.6a1.6 1.6 0 0 1-1.6 1.4h-3.4a1.6 1.6 0 0 1-1.6-1.4z' fill='%23E8A33D'/%3E%3Cpath d='M12.5 9.5c1.6-1.2.4-2.6.4-2.6M16 9.5c1.6-1.2.4-2.6.4-2.6M19.5 9.5c1.6-1.2.4-2.6.4-2.6' stroke='%23F3E6D0' stroke-width='1.4' fill='none' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E" />
+</head>
+
+<body class="is-loading">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PRELOADER
+     ══════════════════════════════════════════════════════════════════ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader__veil"></div>
+  <div class="preloader__inner">
+    <div class="preloader__mark">
+      <svg viewBox="0 0 120 150" class="brew" aria-hidden="true">
+        <defs>
+          <clipPath id="brewClip">
+            <path d="M30 48 h60 l-8 74 a14 14 0 0 1-14 12 h-16 a14 14 0 0 1-14-12 z" />
+          </clipPath>
+          <linearGradient id="brewGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%"  stop-color="#8A4A1C" />
+            <stop offset="55%" stop-color="#C1622F" />
+            <stop offset="100%" stop-color="#F5C169" />
+          </linearGradient>
+        </defs>
+        <path class="brew__body" d="M30 48 h60 l-8 74 a14 14 0 0 1-14 12 h-16 a14 14 0 0 1-14-12 z" />
+        <g clip-path="url(#brewClip)">
+          <rect class="brew__fill" x="24" y="134" width="72" height="90" fill="url(#brewGrad)" />
+        </g>
+        <path class="brew__rim" d="M27 48 h66" />
+        <g class="brew__steam" stroke-linecap="round" fill="none">
+          <path d="M46 40 c8-7 2-14 2-14" />
+          <path d="M60 38 c8-7 2-14 2-14" />
+          <path d="M74 40 c8-7 2-14 2-14" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="preloader__word" aria-hidden="true">
+      <span>C</span><span>H</span><span>A</span><span>I</span><span>W</span><span>A</span><span>L</span><span>A</span>
+    </div>
+
+    <div class="preloader__bar">
+      <span class="preloader__barFill" id="loadBar"></span>
+    </div>
+    <div class="preloader__meta">
+      <span class="mono">BOILING THE KETTLE</span>
+      <span class="mono" id="loadPct">000</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     GLOBAL CHROME
+     ══════════════════════════════════════════════════════════════════ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="aberr" aria-hidden="true"></div>
+
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor__ring"></div>
+  <div class="cursor__dot"></div>
+  <div class="cursor__label"><span></span></div>
+</div>
+
+<canvas id="gl" class="gl" aria-hidden="true"></canvas>
+<div class="gl-fallback" id="glFallback" aria-hidden="true">
+  <div class="gl-fallback__glow"></div>
+</div>
+
+<div class="progress" aria-hidden="true"><span class="progress__fill" id="progressFill"></span></div>
+
+<a class="skip" href="#story">Skip to content</a>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     NAV
+     ══════════════════════════════════════════════════════════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="brand" href="#top" data-cursor="label" data-cursor-label="TOP">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 8h11l-1.3 11.2a2.4 2.4 0 0 1-2.4 2.1h-3.6a2.4 2.4 0 0 1-2.4-2.1z" fill="currentColor" opacity=".9"/>
+          <path d="M8.2 4.4c1.4-1.1.4-2.3.4-2.3M12 4.4c1.4-1.1.4-2.3.4-2.3M15.8 4.4c1.4-1.1.4-2.3.4-2.3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </span>
+      <span class="brand__word">CHAIWALA</span>
+      <span class="brand__est mono">1978</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#story"   class="nav__link" data-cursor="label" data-cursor-label="READ"><span>Ritual</span></a>
+      <a href="#menu"    class="nav__link" data-cursor="label" data-cursor-label="BROWSE"><span>Blends</span></a>
+      <a href="#process" class="nav__link" data-cursor="label" data-cursor-label="SEE"><span>Craft</span></a>
+      <a href="#find"    class="nav__link" data-cursor="label" data-cursor-label="GO"><span>Find Us</span></a>
+    </nav>
+
+    <div class="nav__right">
+      <span class="nav__live mono"><i class="pulse"></i>KETTLE&nbsp;LIVE</span>
+      <a href="#find" class="btn btn--sm" data-magnetic data-cursor="label" data-cursor-label="ORDER">
+        <span>Order a cup</span>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__inner">
+    <a href="#story"   class="drawer__link"><em class="mono">01</em><span>Ritual</span></a>
+    <a href="#menu"    class="drawer__link"><em class="mono">02</em><span>Blends</span></a>
+    <a href="#process" class="drawer__link"><em class="mono">03</em><span>Craft</span></a>
+    <a href="#numbers" class="drawer__link"><em class="mono">04</em><span>Numbers</span></a>
+    <a href="#find"    class="drawer__link"><em class="mono">05</em><span>Find Us</span></a>
+  </div>
+</div>
+
+
+<main id="top">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__scrim" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow mono" data-reveal="up">
+      <span class="dot"></span>EST. 1978 — VARANASI GHATS
+    </p>
+
+    <h1 class="hero__title" data-split="chars" data-cursor="label" data-cursor-label="HELLO">CHAIWALA</h1>
+
+    <div class="hero__sub">
+      <p class="hero__lede" data-reveal="up">
+        <em class="serif">Four spices. One flame.</em><br />
+        Ninety seconds of patience.
+      </p>
+      <p class="hero__body" data-reveal="up">
+        The kettle has not left the flame since 1978. Assam leaf, hand-bruised
+        spice, full-fat milk reduced until it turns the colour of a lamp.
+        This is the cup that wakes a nation.
+      </p>
+      <div class="hero__cta" data-reveal="up">
+        <a href="#menu" class="btn btn--solid" data-magnetic data-cursor="label" data-cursor-label="POUR">
+          <span>Pour me a cup</span>
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#story" class="btn btn--ghost" data-magnetic data-cursor="label" data-cursor-label="WATCH">
+          <span>Read the ritual</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__rail" aria-hidden="true">
+    <span class="mono">01 / THE CUP</span>
+    <span class="hero__railLine"></span>
+    <span class="mono">SCROLL</span>
+  </div>
+
+  <ul class="hero__stats" data-reveal="up">
+    <li><b class="mono">92<sup>°C</sup></b><span>Serving temp</span></li>
+    <li><b class="mono">90<sup>s</sup></b><span>On the flame</span></li>
+    <li><b class="mono">4<sup>M+</sup></b><span>Cups poured</span></li>
+  </ul>
+
+  <a class="scrollcue" href="#story" aria-label="Scroll to the ritual">
+    <span class="scrollcue__line"><i></i></span>
+    <span class="mono">SCROLL</span>
+  </a>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     STORY — pinned chapters
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="story" id="story">
+  <div class="story__sticky">
+    <div class="story__scrim" aria-hidden="true"></div>
+
+    <div class="story__head">
+      <p class="kicker mono" data-reveal="up">01 — THE RITUAL</p>
+      <h2 class="statement" data-split="words">
+        Chai is not a drink. It is a ninety-second ceremony performed four million times a day.
+      </h2>
+    </div>
+
+    <div class="chapters">
+      <article class="chapter is-active" data-chapter="0">
+        <span class="chapter__num mono">/ 01</span>
+        <h3 class="chapter__title">The Kettle</h3>
+        <p class="chapter__text">
+          A battered aluminium kettle, dented on the left side by a scooter in 1991.
+          It has never been replaced. The dent, we have decided, is part of the recipe.
+        </p>
+        <dl class="chapter__facts">
+          <div><dt class="mono">VESSEL</dt><dd>Aluminium, 9 litres</dd></div>
+          <div><dt class="mono">FUEL</dt><dd>Kerosene, then coal</dd></div>
+        </dl>
+      </article>
+
+      <article class="chapter" data-chapter="1">
+        <span class="chapter__num mono">/ 02</span>
+        <h3 class="chapter__title">The Flame</h3>
+        <p class="chapter__text">
+          Full roar, never a simmer. Milk goes in cold and is beaten upward until it
+          climbs the side of the kettle twice — that is how you know the fat has opened.
+        </p>
+        <dl class="chapter__facts">
+          <div><dt class="mono">FLAME</dt><dd>High, 90 seconds</dd></div>
+          <div><dt class="mono">MILK</dt><dd>Full-fat, reduced 40%</dd></div>
+        </dl>
+      </article>
+
+      <article class="chapter" data-chapter="2">
+        <span class="chapter__num mono">/ 03</span>
+        <h3 class="chapter__title">The Pull</h3>
+        <p class="chapter__text">
+          Poured from a height of one arm, back and forth, until a crown of foam
+          sits on the surface like a folded sheet. Aerated. Alive. Never stirred.
+        </p>
+        <dl class="chapter__facts">
+          <div><dt class="mono">HEIGHT</dt><dd>60 cm, one arm</dd></div>
+          <div><dt class="mono">PULLS</dt><dd>Seven, then serve</dd></div>
+        </dl>
+      </article>
+    </div>
+
+    <div class="story__meter" aria-hidden="true">
+      <span class="story__meterFill" id="storyMeter"></span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     MENU — 3D product windows
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="menu" id="menu">
+  <div class="menu__scrim" aria-hidden="true"></div>
+
+  <header class="menu__head">
+    <p class="kicker mono" data-reveal="up">02 — THE BLENDS</p>
+    <h2 class="menu__title" data-reveal="up">
+      Six ways to <em class="serif">wake up</em>
+    </h2>
+    <p class="menu__note" data-reveal="up">
+      Every blend is built on the same Assam second-flush base. What changes is the
+      bruise — how hard the spice is crushed, and when it meets the milk.
+    </p>
+  </header>
+
+  <div class="grid" id="menuGrid">
+
+    <article class="card" data-card="0" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 01</span>
+          <span class="card__price mono">₹40</span>
+        </div>
+        <h3 class="card__name">Kadak Masala</h3>
+        <p class="card__desc">Assam CTC, ginger, clove, black pepper, full-fat milk. The one that bites back.</p>
+        <div class="card__foot">
+          <span class="chip mono">SIGNATURE</span>
+          <span class="heat" title="Heat 4/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="1" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 02</span>
+          <span class="card__price mono">₹50</span>
+        </div>
+        <h3 class="card__name">Elaichi Silk</h3>
+        <p class="card__desc">Green cardamom, single-origin leaf, milk reduced slow. Soft, floral, unreasonably smooth.</p>
+        <div class="card__foot">
+          <span class="chip mono">FLORAL</span>
+          <span class="heat" title="Heat 1/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="2" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 03</span>
+          <span class="card__price mono">₹45</span>
+        </div>
+        <h3 class="card__name">Adrak Fire</h3>
+        <p class="card__desc">Hand-crushed ginger, tulsi, jaggery instead of sugar. For throats that have been shouting.</p>
+        <div class="card__foot">
+          <span class="chip mono">SPICY</span>
+          <span class="heat" title="Heat 5/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="3" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 04</span>
+          <span class="card__price mono">₹25</span>
+        </div>
+        <h3 class="card__name">Cutting Chai</h3>
+        <p class="card__desc">Half glass, double strength, no ceremony. Bombay's official unit of time.</p>
+        <div class="card__foot">
+          <span class="chip mono">CULT</span>
+          <span class="heat" title="Heat 3/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="4" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 05</span>
+          <span class="card__price mono">₹60</span>
+        </div>
+        <h3 class="card__name">Kulhad Special</h3>
+        <p class="card__desc">Baked in an earthen cup with saffron and crushed pistachio. Drink it, then break the cup.</p>
+        <div class="card__foot">
+          <span class="chip mono">SEASONAL</span>
+          <span class="heat" title="Heat 2/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-card="5" data-reveal="up" data-tilt>
+      <div class="card__stage" data-stage><div class="card__stageGlow"></div></div>
+      <div class="card__body">
+        <div class="card__top">
+          <span class="card__idx mono">/ 06</span>
+          <span class="card__price mono">₹55</span>
+        </div>
+        <h3 class="card__name">Sulaimani</h3>
+        <p class="card__desc">Black, lemon, mint, no milk at all. The Malabar coast in a glass, served after dinner.</p>
+        <div class="card__foot">
+          <span class="chip mono">NO MILK</span>
+          <span class="heat" title="Heat 2/5"><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i></span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="menu__foot mono" data-reveal="up">ALL PRICES IN ₹ · SERVED 05:00 – 23:00 · NO CARD, NO PROBLEM</p>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     PROCESS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="process" id="process">
+  <div class="process__scrim" aria-hidden="true"></div>
+  <div class="process__inner">
+
+    <div class="process__aside">
+      <p class="kicker mono" data-reveal="up">03 — THE CRAFT</p>
+      <h2 class="process__title" data-reveal="up">Four moves.<br /><em class="serif">No shortcuts.</em></h2>
+      <p class="process__note" data-reveal="up">
+        There is no machine in this building. There is a flame, a kettle, a
+        piece of stone for crushing, and a pair of arms that have done it
+        a few million times.
+      </p>
+      <div class="process__clock" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="52" class="ring" />
+          <circle cx="60" cy="60" r="52" class="ringFill" id="ringFill" />
+        </svg>
+        <span class="mono" id="ringLabel">90s</span>
+      </div>
+    </div>
+
+    <ol class="steps">
+      <li class="step" data-step>
+        <span class="step__num mono">01</span>
+        <h3 class="step__title">Source</h3>
+        <p class="step__text">Second-flush Assam leaf, bought at auction in Guwahati every June. Strong, malty, unafraid of milk.</p>
+        <span class="step__line" aria-hidden="true"><i></i></span>
+      </li>
+      <li class="step" data-step>
+        <span class="step__num mono">02</span>
+        <h3 class="step__title">Bruise</h3>
+        <p class="step__text">Spice is crushed on stone, never ground to powder. A cracked cardamom pod releases oil for hours; a powdered one for minutes.</p>
+        <span class="step__line" aria-hidden="true"><i></i></span>
+      </li>
+      <li class="step" data-step>
+        <span class="step__num mono">03</span>
+        <h3 class="step__title">Boil</h3>
+        <p class="step__text">Water first, leaf second, spice third, milk last. Ninety seconds at full roar. Not eighty. Not a hundred.</p>
+        <span class="step__line" aria-hidden="true"><i></i></span>
+      </li>
+      <li class="step" data-step>
+        <span class="step__num mono">04</span>
+        <h3 class="step__title">Pull</h3>
+        <p class="step__text">Poured from height seven times to fold air into the body. The foam should hold a spoon for three seconds.</p>
+        <span class="step__line" aria-hidden="true"><i></i></span>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     NUMBERS
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="numbers" id="numbers">
+  <div class="numbers__marquee" aria-hidden="true">
+    <div class="marquee" data-marquee>
+      <span>KADAK MASALA · ELAICHI SILK · ADRAK FIRE · CUTTING CHAI · KULHAD SPECIAL · SULAIMANI · </span>
+      <span>KADAK MASALA · ELAICHI SILK · ADRAK FIRE · CUTTING CHAI · KULHAD SPECIAL · SULAIMANI · </span>
+    </div>
+  </div>
+
+  <div class="numbers__grid">
+    <div class="stat" data-reveal="up">
+      <b class="stat__num mono" data-count="4" data-suffix="M+">0</b>
+      <span class="stat__label">Cups poured<br />since 1978</span>
+    </div>
+    <div class="stat" data-reveal="up">
+      <b class="stat__num mono" data-count="47" data-suffix="">0</b>
+      <span class="stat__label">Years on the<br />same corner</span>
+    </div>
+    <div class="stat" data-reveal="up">
+      <b class="stat__num mono" data-count="12" data-suffix="">0</b>
+      <span class="stat__label">Spice blends<br />in rotation</span>
+    </div>
+    <div class="stat" data-reveal="up">
+      <b class="stat__num mono" data-count="3" data-suffix="">0</b>
+      <span class="stat__label">Generations at<br />the same kettle</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VOICES
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="voices" id="voices">
+  <div class="voices__scrim" aria-hidden="true"></div>
+  <p class="kicker mono" data-reveal="up">04 — VOICES</p>
+  <h2 class="voices__title" data-reveal="up">What people say <em class="serif">between sips</em></h2>
+
+  <div class="carousel" id="carousel">
+    <div class="carousel__track" id="carouselTrack">
+      <figure class="quote">
+        <blockquote>I have moved house three times to stay within walking distance of this kettle. That is not a joke.</blockquote>
+        <figcaption><b>Meera Joshi</b><span class="mono">REGULAR SINCE 2009</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>The kulhad one tastes like the ground after rain. I don't know how else to say it.</blockquote>
+        <figcaption><b>Arjun Nair</b><span class="mono">BENGALURU</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>I came for the tea, stayed for the argument about whether milk goes in before or after the leaf.</blockquote>
+        <figcaption><b>Sana Qureshi</b><span class="mono">FIRST-TIMER, NOW DAILY</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>Sixty rupees for a clay cup and ten minutes of quiet. Cheapest therapy in the country.</blockquote>
+        <figcaption><b>Devansh Rao</b><span class="mono">MUMBAI</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="carousel__nav">
+    <button class="rnd" id="prevQ" aria-label="Previous quote" data-cursor="label" data-cursor-label="PREV">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M14 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <span class="carousel__count mono" id="qCount">01 / 04</span>
+    <button class="rnd" id="nextQ" aria-label="Next quote" data-cursor="label" data-cursor-label="NEXT">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     FIND US / CTA
+     ══════════════════════════════════════════════════════════════════ -->
+<section class="find" id="find">
+  <div class="find__scrim" aria-hidden="true"></div>
+  <div class="find__inner">
+    <div class="find__left">
+      <p class="kicker mono" data-reveal="up">05 — FIND US</p>
+      <h2 class="find__title" data-reveal="up">Follow<br /><em class="serif">the flame.</em></h2>
+      <p class="find__note" data-reveal="up">
+        Four carts. Four cities. Same kettle, same dent. Come before 7am and
+        you will get the first pull, which is always the best one.
+      </p>
+
+      <form class="signup" data-reveal="up" onsubmit="return false;">
+        <label class="mono" for="email">GET THE MORNING NOTE</label>
+        <div class="signup__row">
+          <input id="email" type="email" placeholder="you@somewhere.in" autocomplete="email" />
+          <button class="btn btn--solid" data-magnetic data-cursor="label" data-cursor-label="SEND"><span>Send</span></button>
+        </div>
+        <p class="signup__hint mono" id="signupHint">ONE NOTE A WEEK. NO SPICE SPAM.</p>
+      </form>
+    </div>
+
+    <ul class="places">
+      <li class="place" data-reveal="up" data-cursor="label" data-cursor-label="MAP">
+        <span class="place__city">Varanasi</span>
+        <span class="place__meta mono">ASSI GHAT · 04:30 – 23:00</span>
+        <span class="place__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="place" data-reveal="up" data-cursor="label" data-cursor-label="MAP">
+        <span class="place__city">Mumbai</span>
+        <span class="place__meta mono">DADAR EAST · 05:00 – 01:00</span>
+        <span class="place__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="place" data-reveal="up" data-cursor="label" data-cursor-label="MAP">
+        <span class="place__city">Delhi</span>
+        <span class="place__meta mono">CHANDNI CHOWK · 05:30 – 22:00</span>
+        <span class="place__arrow" aria-hidden="true">→</span>
+      </li>
+      <li class="place" data-reveal="up" data-cursor="label" data-cursor-label="MAP">
+        <span class="place__city">Bengaluru</span>
+        <span class="place__meta mono">MALLESHWARAM · 06:00 – 21:00</span>
+        <span class="place__arrow" aria-hidden="true">→</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════════════════════════ -->
+<footer class="foot">
+  <div class="foot__wordmark" aria-hidden="true" data-parallax="0.12">CHAIWALA</div>
+
+  <div class="foot__inner">
+    <div class="foot__col">
+      <span class="foot__brand">CHAIWALA</span>
+      <p class="foot__blurb">A single kettle on a kerosene flame, and the ninety-second ceremony that comes out of it.</p>
+    </div>
+    <nav class="foot__col" aria-label="Footer">
+      <span class="mono foot__h">EXPLORE</span>
+      <a href="#story">Ritual</a>
+      <a href="#menu">Blends</a>
+      <a href="#process">Craft</a>
+      <a href="#find">Find Us</a>
+    </nav>
+    <div class="foot__col">
+      <span class="mono foot__h">ELSEWHERE</span>
+      <a href="#top">Instagram</a>
+      <a href="#top">YouTube</a>
+      <a href="#top">Spotify</a>
+    </div>
+    <div class="foot__col">
+      <span class="mono foot__h">KETTLE</span>
+      <p class="foot__live"><i class="pulse"></i>Boiling now</p>
+      <p class="mono foot__tiny">SERVED 05:00 – 23:00 IST</p>
+    </div>
+  </div>
+
+  <div class="foot__base">
+    <span class="mono">© <span id="year">2026</span> CHAIWALA — VARANASI, INDIA</span>
+    <span class="mono">BREWED WITH TOO MUCH CARDAMOM</span>
+    <a class="mono foot__top" href="#top" data-cursor="label" data-cursor-label="TOP">BACK TO TOP ↑</a>
+  </div>
+</footer>
+
+</main>
+
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════════ -->
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+
+<script>
+/* Safety net: ES modules are blocked when a page is opened straight off disk
+   (file://), and can fail on a flaky network. If the app never boots, drop the
+   preloader and fall back to the CSS-only backdrop so the page still reads. */
+(function () {
+  var booted = false;
+  window.__chaiBoot = function () { booted = true; };
+
+  function fallback() {
+    if (booted) return;
+    booted = true;
+    document.documentElement.classList.add('no-webgl');
+    document.body.classList.remove('is-loading');
+    document.body.classList.add('is-ready');
+    var pre = document.getElementById('preloader');
+    if (pre) pre.style.display = 'none';
+    var bar = document.getElementById('progressFill');
+    if (bar) bar.style.width = '0%';
+  }
+
+  window.addEventListener('error', function (e) {
+    var t = e && e.target;
+    if (t && t.tagName === 'SCRIPT' && !t.src.includes('gsap') &&
+        !t.src.includes('ScrollTrigger') && !t.src.includes('lenis')) {
+      fallback();
+    }
+  }, true);
+
+  setTimeout(fallback, 5000);
+})();
+</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
