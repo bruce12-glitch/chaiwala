@@ -4,6 +4,10 @@ A cinematic, single-page landing experience for a chai brand, built around a rea
 
 No build step and no CDN — all libraries are vendored in `vendor/`, so the site runs offline.
 
+## Live
+
+https://bruce12-glitch.github.io/chaiwala/
+
 ## Tech
 - **Three.js** — 3D world, custom shaders, portholes
 - **GSAP + ScrollTrigger** — scroll animation and reveals
